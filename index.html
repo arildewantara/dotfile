@@ -4,8 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Image Search with Server Logging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ... (Your CSS remains the same) ... */
+        /* General Body Styling */
+        body {
+            font-family: 'Roboto', Arial, sans-serif; /* Using Roboto for a Google-like feel, with Arial as fallback */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally */
+            justify-content: flex-start; /* Start items from the top */
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            background-color: #f8f8f8; /* Light gray background */
+            padding-top: 80px; /* More padding from the top */
+            color: #202124; /* Dark gray for general text */
+        }
+
+        /* Search Container */
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px; /* Spacing between logo and search box */
+            margin-bottom: 40px; /* Space below the search elements */
+        }
+
+        /* Google Logo */
+        .google-logo {
+            width: 200px; /* Slightly larger logo for prominence */
+            height: auto;
+            object-fit: contain; /* Ensure logo scales correctly */
+        }
+
+        /* Search Box Wrapper */
+        .search-box {
+            display: flex;
+            align-items: center; /* Vertically align input and button */
+            border: 1px solid #dfe1e5; /* Light gray border */
+            border-radius: 24px; /* More rounded corners */
+            padding: 4px 6px; /* Slightly more compact padding */
+            width: 580px; /* Wider search box */
+            max-width: 90%; /* Responsive max width */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
+        }
+
+        .search-box:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Slightly stronger shadow on hover */
+        }
+
+        .search-box:focus-within { /* When input inside is focused */
+            border-color: #4285F4; /* Blue border on focus */
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2); /* Blue shadow on focus */
+        }
+
+        /* Search Input Field */
+        .search-box input {
+            flex-grow: 1; /* Input takes up available space */
+            border: none;
+            outline: none; /* Remove default focus outline */
+            padding: 10px 18px; /* More generous padding inside input */
+            font-size: 16px;
+            background: transparent;
+            color: #202124;
+        }
+
+        .search-box input::placeholder {
+            color: #70757a; /* Lighter placeholder text */
+        }
+
+        /* Search Button */
+        .search-box button {
+            background-color: #4285F4; /* Google Blue */
+            border: 1px solid #4285F4; /* Blue border */
+            border-radius: 20px; /* Rounded button */
+            color: #ffffff; /* White text */
+            font-size: 15px; /* Slightly larger font */
+            font-weight: 500; /* Medium weight */
+            padding: 10px 20px; /* Padding for the button */
+            margin-left: 10px; /* Space from input */
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transitions */
+        }
+
+        .search-box button:hover {
+            background-color: #357ae8; /* Slightly darker blue on hover */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Subtle shadow on hover */
+        }
+
+        .search-box button:active {
+            background-color: #2a6ee3; /* Even darker blue on click */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
+        }
+
+        /* Results Container (for informational text) */
+        .results-container {
+            margin-top: 30px;
+            width: 80%;
+            text-align: center;
+            color: #5f6368; /* Google's standard gray for secondary text */
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
