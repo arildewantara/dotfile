@@ -1,3 +1,4 @@
+// netlify/functions/log-search.js
 const express = require('express');
 const serverless = require('serverless-http'); // For wrapping Express
 const app = express();
