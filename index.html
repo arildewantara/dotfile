@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Image Search with Server Logging</title>
+    <title>My Image Search with Vercel Logging</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* General Body Styling */
         body {
-            font-family: 'Roboto', Arial, sans-serif; /* Using Roboto for a Google-like feel, with Arial as fallback */
+            font-family: 'Roboto', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center; /* Center items horizontally */
             justify-content: flex-start; /* Start items from the top */
-            min-height: 100vh; /* Full viewport height */
+            min-height: 100vh;
             margin: 0;
             background-color: #f8f8f8; /* Light gray background */
             padding-top: 80px; /* More padding from the top */
@@ -36,8 +36,8 @@
             object-fit: contain; /* Ensure logo scales correctly */
         }
 
-        /* Search Box Wrapper */
-        .search-box {
+        /* Form/Search Box Wrapper */
+        #searchForm { /* Using ID for the form as the main wrapper */
             display: flex;
             align-items: center; /* Vertically align input and button */
             border: 1px solid #dfe1e5; /* Light gray border */
@@ -49,17 +49,17 @@
             transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
         }
 
-        .search-box:hover {
+        #searchForm:hover {
             box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Slightly stronger shadow on hover */
         }
 
-        .search-box:focus-within { /* When input inside is focused */
+        #searchForm:focus-within { /* When input inside is focused */
             border-color: #4285F4; /* Blue border on focus */
             box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2); /* Blue shadow on focus */
         }
 
         /* Search Input Field */
-        .search-box input {
+        #searchInput { /* Added ID to the input */
             flex-grow: 1; /* Input takes up available space */
             border: none;
             outline: none; /* Remove default focus outline */
@@ -69,12 +69,12 @@
             color: #202124;
         }
 
-        .search-box input::placeholder {
+        #searchInput::placeholder {
             color: #70757a; /* Lighter placeholder text */
         }
 
         /* Search Button */
-        .search-box button {
+        #searchButton { /* Added ID to the button */
             background-color: #4285F4; /* Google Blue */
             border: 1px solid #4285F4; /* Blue border */
             border-radius: 20px; /* Rounded button */
@@ -88,12 +88,12 @@
             transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transitions */
         }
 
-        .search-box button:hover {
+        #searchButton:hover {
             background-color: #357ae8; /* Slightly darker blue on hover */
             box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Subtle shadow on hover */
         }
 
-        .search-box button:active {
+        #searchButton:active {
             background-color: #2a6ee3; /* Even darker blue on click */
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
         }
@@ -111,49 +111,53 @@
 <body>
     <div class="search-container">
         <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="google-logo">
-        <div class="search-box">
+        <form id="searchForm">
             <input type="text" id="searchInput" placeholder="Search for images...">
-            <button id="searchButton">Search</button>
-        </div>
+            <button type="submit" id="searchButton">Search</button>
+        </form>
     </div>
 
     <div class="results-container">
-        <p>Your searches will be logged on the server console (Netlify Functions logs).</p>
+        <p>Your searches will be logged in Vercel Function logs, then you'll be redirected to Google Images.</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('searchForm');
             const searchInput = document.getElementById('searchInput');
-            const searchButton = document.getElementById('searchButton');
 
-            searchButton.addEventListener('click', handleSearch);
-            searchInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    handleSearch();
-                }
-            });
+            searchForm.addEventListener('submit', handleSearchFormSubmission);
 
-            async function handleSearch() {
+            async function handleSearchFormSubmission(event) {
+                event.preventDefault(); // IMPORTANT: Prevent the default form submission (page reload)
+
                 const query = searchInput.value.trim();
 
                 if (query) {
-                    // 1. Send the query to the Netlify Function for logging
+                    // 1. Send the query to the Vercel Serverless Function for logging
                     try {
-                        // IMPORTANT: Change the fetch URL to point to your Netlify Function
-                        const response = await fetch('/.netlify/functions/log-search', {
+                        const response = await fetch('/api/log-input', { // Point to your Vercel Function
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ query: query }),
+                            body: JSON.stringify({ input: query }), // Send the query as 'input'
                         });
+
                         const data = await response.json();
-                        console.log('Server response (from Netlify Function):', data.message);
+                        if (response.ok) {
+                            console.log('Vercel Function response:', data.message);
+                        } else {
+                            console.error('Error from Vercel Function:', data.message);
+                        }
                     } catch (error) {
-                        console.error('Error sending query to Netlify Function:', error);
+                        console.error('Error sending query to Vercel Function:', error);
+                        // Optionally, alert the user about the logging failure but still proceed with search
                     }
 
                     // 2. Redirect to Google Images
+                    // This happens regardless of whether logging succeeded or failed,
+                    // ensuring the core search functionality works.
                     const googleImagesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
                     window.location.href = googleImagesUrl;
 
