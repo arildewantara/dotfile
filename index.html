@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Image Search with Server Logging</title>
+    <style>
+        /* ... (Your CSS remains the same) ... */
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="google-logo">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search for images...">
+            <button id="searchButton">Search</button>
+        </div>
+    </div>
+
+    <div class="results-container">
+        <p>Your searches will be logged on the server console (Netlify Functions logs).</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+
+            searchButton.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            async function handleSearch() {
+                const query = searchInput.value.trim();
+
+                if (query) {
+                    // 1. Send the query to the Netlify Function for logging
+                    try {
+                        // IMPORTANT: Change the fetch URL to point to your Netlify Function
+                        const response = await fetch('/.netlify/functions/log-search', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ query: query }),
+                        });
+                        const data = await response.json();
+                        console.log('Server response (from Netlify Function):', data.message);
+                    } catch (error) {
+                        console.error('Error sending query to Netlify Function:', error);
+                    }
+
+                    // 2. Redirect to Google Images
+                    const googleImagesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
+                    window.location.href = googleImagesUrl;
+
+                } else {
+                    alert('Please enter a search query.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
