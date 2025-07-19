@@ -3,232 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Image Search with Vercel Logging</title>
+    <title>Responsive Input Logger (Vercel)</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* General Body Styling */
         body {
             font-family: 'Roboto', Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center items horizontally */
-            justify-content: flex-start; /* Start items from the top */
+            align-items: center;
+            justify-content: center; /* Center content vertically */
             min-height: 100vh;
             margin: 0;
-            background-color: #f8f8f8; /* Light gray background */
-            padding-top: 80px; /* More padding from the top */
-            color: #202124; /* Dark gray for general text */
-        }
-
-        /* Search Container */
-        .search-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px; /* Spacing between logo and search box */
-            margin-bottom: 40px; /* Space below the search elements */
-        }
-
-        /* Google Logo */
-        .google-logo {
-            width: 200px; /* Larger logo for prominence */
-            height: auto;
-            object-fit: contain; /* Ensure logo scales correctly */
-        }
-
-        /* Form/Search Box Wrapper - Made Responsive */
-        #searchForm { /* Using ID for the form as the main wrapper */
-            display: flex;
-            align-items: center; /* Vertically align input and button */
-            border: 1px solid #dfe1e5; /* Light gray border */
-            border-radius: 24px; /* More rounded corners */
-            padding: 4px 6px; /* Slightly more compact padding */
-            width: 580px; /* Wider search box */
-            max-width: 90%; /* Responsive max width - ensures it shrinks on smaller screens */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
-
-            /* Added responsiveness properties */
-            flex-wrap: wrap; /* Allow items (input, button) to wrap to the next line */
-            justify-content: center; /* Center items horizontally when they wrap */
-        }
-
-        #searchForm:hover {
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Slightly stronger shadow on hover */
-        }
-
-        #searchForm:focus-within { /* When input inside is focused */
-            border-color: #4285F4; /* Blue border on focus */
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2); /* Blue shadow on focus */
-        }
-
-        /* Search Input Field */
-        #searchInput {
-            flex-grow: 1; /* Input takes up available space */
-            border: none; /* No individual border as form provides it */
-            outline: none; /* Remove default focus outline */
-            padding: 10px 18px; /* More generous padding inside input */
-            font-size: 16px;
-            background: transparent;
+            background-color: #e8f0fe; /* Light blue background, common for Google forms/login */
             color: #202124;
-
-            /* Responsive adjustment */
-            min-width: 150px; /* Prevents input from becoming too narrow before wrapping occurs */
         }
 
-        #searchInput::placeholder {
-            color: #70757a; /* Lighter placeholder text */
-        }
-
-        /* Search Button */
-        #searchButton {
-            background-color: #4285F4; /* Google Blue */
-            border: 1px solid #4285F4; /* Blue border */
-            border-radius: 20px; /* Rounded button */
-            color: #ffffff; /* White text */
-            font-size: 15px; /* Slightly larger font */
-            font-weight: 500; /* Medium weight */
-            padding: 10px 20px; /* Padding for the button */
-            margin-left: 10px; /* Space from input */
-            cursor: pointer;
-            outline: none;
-            transition: background-color 0.2s, box-shadow 0.2s;
-
-            /* Responsive adjustment */
-            flex-shrink: 0; /* Prevents the button from shrinking on smaller screens */
-        }
-
-        #searchButton:hover {
-            background-color: #357ae8; /* Slightly darker blue on hover */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Subtle shadow on hover */
-        }
-
-        #searchButton:active {
-            background-color: #2a6ee3; /* Even darker blue on click */
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
-        }
-
-        /* Results Container (for informational text) */
-        .results-container {
-            margin-top: 30px;
-            width: 80%;
+        .form-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            /* More pronounced shadow for a floating card effect */
+            box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+            width: 450px; /* Desired width on larger screens */
+            max-width: 90%; /* Ensures it shrinks on smaller screens */
             text-align: center;
-            color: #5f6368; /* Google's standard gray for secondary text */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        .form-card h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #3c4043;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left; /* Align label and input to the left within their group */
+        }
+
+        .form-group label {
+            display: block;
             font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
-        /* Media Queries for smaller screens */
-        @media (max-width: 680px) { /* Adjust breakpoint as needed */
-            .google-logo {
-                width: 160px; /* Smaller logo on smaller screens */
-            }
-
-            #searchForm {
-                /* When items wrap, treat the form more like a card */
-                flex-direction: column; /* Stack input and button vertically */
-                padding: 15px 20px; /* More padding when stacked */
-                border-radius: 8px; /* Slightly less rounded corners when acting as a card */
-                box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* More prominent shadow when acting as a card */
-                max-width: 95%; /* Allow it to take up more width on small screens */
-                width: auto; /* Let content determine width more freely */
-            }
-
-            #searchInput {
-                width: 100%; /* Make input take full width when stacked */
-                margin-bottom: 15px; /* Space between input and button when stacked */
-                padding: 12px; /* Slightly more vertical padding */
-                border: 1px solid #dadce0; /* Add back a border for the input itself */
-                border-radius: 4px; /* Slightly less rounded for the input */
-            }
-
-            /* Ensure input focus styling still applies correctly when it has its own border */
-            #searchInput:focus {
-                border-color: #1a73e8; /* Google blue on focus */
-                outline: none;
-                box-shadow: 0 0 0 1px #1a73e8; /* Subtle blue outline on focus */
-            }
-
-            #searchButton {
-                width: 100%; /* Make button take full width when stacked */
-                margin-left: 0; /* Remove left margin when stacked */
-            }
+        .form-group input[type="text"] {
+            width: 100%; /* Make input take full width of its parent (.form-group) */
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #202124;
+            box-sizing: border-box; /* Include padding and border in width */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        @media (max-width: 480px) {
-            .search-container {
-                padding-top: 40px; /* Less top padding on very small screens */
+        .form-group input[type="text"]:focus {
+            border-color: #1a73e8; /* Google blue on focus */
+            outline: none;
+            box-shadow: 0 0 0 1px #1a73e8; /* Subtle blue outline on focus */
+        }
+
+        .submit-button {
+            background-color: #1a73e8; /* Google Blue */
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            min-width: 120px; /* Ensure a decent size */
+        }
+
+        .submit-button:hover {
+            background-color: #1565c0; /* Darker blue on hover */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .submit-button:active {
+            background-color: #0d47a1; /* Even darker blue on click */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .message-area {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .message-area.success {
+            color: #188038; /* Green for success */
+        }
+
+        .message-area.error {
+            color: #d93025; /* Red for error */
+        }
+
+        /* --- Responsive adjustments (Media Queries) --- */
+
+        /* For screens smaller than 500px (e.g., most mobile phones) */
+        @media (max-width: 500px) {
+            .form-card {
+                padding: 30px 20px; /* Reduce padding on smaller screens */
+                border-radius: 0; /* Make it full width without rounded corners on very small screens */
+                box-shadow: none; /* Remove shadow to blend with body */
+                max-width: 100%; /* Take full width */
+                min-height: 100vh; /* Make it fill screen vertically if needed */
+                display: flex; /* Use flexbox to organize content vertically */
+                flex-direction: column;
+                justify-content: center; /* Center content inside the "card" */
             }
-            .google-logo {
-                width: 120px;
+
+            .form-card h1 {
+                font-size: 20px; /* Smaller heading */
+                margin-bottom: 20px;
             }
-            #searchForm {
-                padding: 12px 15px;
+
+            .form-group {
+                margin-bottom: 20px; /* Slightly less margin */
             }
-            #searchInput {
-                padding: 10px;
+
+            .form-group input[type="text"] {
+                padding: 10px; /* Smaller input padding */
+                font-size: 15px;
             }
-            #searchButton {
-                padding: 10px 15px;
-                font-size: 14px;
+
+            .submit-button {
+                width: 100%; /* Button takes full width on small screens */
+                padding: 10px 15px; /* Smaller button padding */
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="google-logo">
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Search for images...">
-            <button type="submit" id="searchButton">Search</button>
+    <div class="form-card">
+        <h1>Welcome! Please Enter Your Text</h1>
+        <form id="inputForm">
+            <div class="form-group">
+                <label for="userInput">Your text:</label>
+                <input type="text" id="userInput" name="userInput" placeholder="Type something here...">
+            </div>
+            <button type="submit" class="submit-button">Send</button>
         </form>
-    </div>
-
-    <div class="results-container">
-        <p>Your searches will be logged in Vercel Function logs, then you'll be redirected to Google Images.</p>
+        <p class="message-area" id="messageArea"></p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const searchForm = document.getElementById('searchForm');
-            const searchInput = document.getElementById('searchInput');
+            const inputForm = document.getElementById('inputForm');
+            const userInputField = document.getElementById('userInput');
+            const messageArea = document.getElementById('messageArea');
 
-            searchForm.addEventListener('submit', handleSearchFormSubmission);
+            inputForm.addEventListener('submit', handleFormSubmission);
 
-            async function handleSearchFormSubmission(event) {
-                event.preventDefault(); // Prevent the default form submission (page reload)
+            async function handleFormSubmission(event) {
+                event.preventDefault(); // Prevent default form submission (page reload)
 
-                const query = searchInput.value.trim();
+                const inputValue = userInputField.value.trim();
 
-                if (query) {
-                    // 1. Send the query to the Vercel Serverless Function for logging
+                if (inputValue) {
+                    messageArea.textContent = 'Submitting...';
+                    messageArea.className = 'message-area'; // Reset class for styling
+
                     try {
-                        const response = await fetch('/api/log-input', { // Point to your Vercel Function
+                        // Vercel Serverless Function endpoint
+                        const response = await fetch('/api/log-input', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ input: query }), // Send the query as 'input'
+                            body: JSON.stringify({ input: inputValue }), // Send the input value
                         });
 
                         const data = await response.json();
+
                         if (response.ok) {
-                            console.log('Vercel Function response:', data.message);
+                            messageArea.textContent = `Success: "${data.message}"`;
+                            messageArea.classList.add('success');
+                            userInputField.value = ''; // Clear input on success
                         } else {
-                            console.error('Error from Vercel Function:', data.message);
+                            messageArea.textContent = `Error: "${data.message}"`;
+                            messageArea.classList.add('error');
                         }
+                        console.log('Vercel Function response:', data);
+
                     } catch (error) {
-                        console.error('Error sending query to Vercel Function:', error);
-                        // Optionally, alert the user about the logging failure but still proceed with search
+                        messageArea.textContent = 'Failed to connect to server.';
+                        messageArea.classList.add('error');
+                        console.error('Error sending data to Vercel Function:', error);
                     }
-
-                    // 2. Redirect to Google Images
-                    // This happens regardless of whether logging succeeded or failed,
-                    // ensuring the core search functionality works.
-                    const googleImagesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
-                    window.location.href = googleImagesUrl;
-
                 } else {
-                    alert('Please enter a search query.');
+                    messageArea.textContent = 'Please enter some text.';
+                    messageArea.classList.add('error');
                 }
             }
         });
