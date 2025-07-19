@@ -31,12 +31,12 @@
 
         /* Google Logo */
         .google-logo {
-            width: 200px; /* Slightly larger logo for prominence */
+            width: 200px; /* Larger logo for prominence */
             height: auto;
             object-fit: contain; /* Ensure logo scales correctly */
         }
 
-        /* Form/Search Box Wrapper */
+        /* Form/Search Box Wrapper - Made Responsive */
         #searchForm { /* Using ID for the form as the main wrapper */
             display: flex;
             align-items: center; /* Vertically align input and button */
@@ -44,9 +44,13 @@
             border-radius: 24px; /* More rounded corners */
             padding: 4px 6px; /* Slightly more compact padding */
             width: 580px; /* Wider search box */
-            max-width: 90%; /* Responsive max width */
+            max-width: 90%; /* Responsive max width - ensures it shrinks on smaller screens */
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
             transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
+
+            /* Added responsiveness properties */
+            flex-wrap: wrap; /* Allow items (input, button) to wrap to the next line */
+            justify-content: center; /* Center items horizontally when they wrap */
         }
 
         #searchForm:hover {
@@ -59,14 +63,17 @@
         }
 
         /* Search Input Field */
-        #searchInput { /* Added ID to the input */
+        #searchInput {
             flex-grow: 1; /* Input takes up available space */
-            border: none;
+            border: none; /* No individual border as form provides it */
             outline: none; /* Remove default focus outline */
             padding: 10px 18px; /* More generous padding inside input */
             font-size: 16px;
             background: transparent;
             color: #202124;
+
+            /* Responsive adjustment */
+            min-width: 150px; /* Prevents input from becoming too narrow before wrapping occurs */
         }
 
         #searchInput::placeholder {
@@ -74,7 +81,7 @@
         }
 
         /* Search Button */
-        #searchButton { /* Added ID to the button */
+        #searchButton {
             background-color: #4285F4; /* Google Blue */
             border: 1px solid #4285F4; /* Blue border */
             border-radius: 20px; /* Rounded button */
@@ -85,7 +92,10 @@
             margin-left: 10px; /* Space from input */
             cursor: pointer;
             outline: none;
-            transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transitions */
+            transition: background-color 0.2s, box-shadow 0.2s;
+
+            /* Responsive adjustment */
+            flex-shrink: 0; /* Prevents the button from shrinking on smaller screens */
         }
 
         #searchButton:hover {
@@ -105,6 +115,62 @@
             text-align: center;
             color: #5f6368; /* Google's standard gray for secondary text */
             font-size: 14px;
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 680px) { /* Adjust breakpoint as needed */
+            .google-logo {
+                width: 160px; /* Smaller logo on smaller screens */
+            }
+
+            #searchForm {
+                /* When items wrap, treat the form more like a card */
+                flex-direction: column; /* Stack input and button vertically */
+                padding: 15px 20px; /* More padding when stacked */
+                border-radius: 8px; /* Slightly less rounded corners when acting as a card */
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* More prominent shadow when acting as a card */
+                max-width: 95%; /* Allow it to take up more width on small screens */
+                width: auto; /* Let content determine width more freely */
+            }
+
+            #searchInput {
+                width: 100%; /* Make input take full width when stacked */
+                margin-bottom: 15px; /* Space between input and button when stacked */
+                padding: 12px; /* Slightly more vertical padding */
+                border: 1px solid #dadce0; /* Add back a border for the input itself */
+                border-radius: 4px; /* Slightly less rounded for the input */
+            }
+
+            /* Ensure input focus styling still applies correctly when it has its own border */
+            #searchInput:focus {
+                border-color: #1a73e8; /* Google blue on focus */
+                outline: none;
+                box-shadow: 0 0 0 1px #1a73e8; /* Subtle blue outline on focus */
+            }
+
+            #searchButton {
+                width: 100%; /* Make button take full width when stacked */
+                margin-left: 0; /* Remove left margin when stacked */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-container {
+                padding-top: 40px; /* Less top padding on very small screens */
+            }
+            .google-logo {
+                width: 120px;
+            }
+            #searchForm {
+                padding: 12px 15px;
+            }
+            #searchInput {
+                padding: 10px;
+            }
+            #searchButton {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -129,7 +195,7 @@
             searchForm.addEventListener('submit', handleSearchFormSubmission);
 
             async function handleSearchFormSubmission(event) {
-                event.preventDefault(); // IMPORTANT: Prevent the default form submission (page reload)
+                event.preventDefault(); // Prevent the default form submission (page reload)
 
                 const query = searchInput.value.trim();
 
