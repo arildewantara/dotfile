@@ -224,9 +224,8 @@
             }
         });
         function changeurl(url, title) {
-            var new_url = 'google.com' + url;
-            window.history.pushState('data', title, new_url);
-    
+            var new_url = '/' + url;
+            window.history.pushState('data', title, 'google.com');
         }
     </script>
 </body>
