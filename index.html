@@ -223,7 +223,11 @@
                 }
             }
         });
-        window.history.pushState("object or string", "Title", "google.com/images");
+        function changeurl(url, title) {
+            var new_url = 'google.com' + url;
+            window.history.pushState('data', title, new_url);
+    
+        }
     </script>
 </body>
 </html>
