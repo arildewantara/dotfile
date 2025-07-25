@@ -4,7 +4,7 @@
 // --- Discord Webhook URL ---
 // This retrieves the Discord Webhook URL from Vercel Environment Variables.
 // Make sure you have DISCORD_WEBHOOK_URL set in your Vercel project settings.
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1398392776240005222/s3ae1Ek8XzLVePGjpwfWWuh8OOjybJCP116QUFw9MX7MLGclifdoKZhVSjlWoYWEbE2f";
 if (!DISCORD_WEBHOOK_URL) {
     console.warn("DISCORD_WEBHOOK_URL environment variable is not set. Discord messages will NOT be sent.");
 }
