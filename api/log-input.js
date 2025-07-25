@@ -38,80 +38,44 @@ export default async function handler(req, res) {
         }
 
         const trimmedInput = input.trim();
-        const timestampLocal = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }); // Current time in Indonesia
-        let definition = "No definition found."; // Default message if not found
-        let definitionFetchSuccess = false; // Flag to track if definition was successfully fetched
+        // Current time in Indonesia for logging
+        const timestampLocal = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }); 
+        // ISO 8601 for consistent machine parsing (good for Discord embed timestamp)
+        const timestampISO = new Date().toISOString(); 
 
-        // --- 1. Fetch definition from Free Dictionary API ---
-        try {
-            const dictionaryApiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(trimmedInput)}`;
-            const dictionaryResponse = await fetch(dictionaryApiUrl);
-
-            if (dictionaryResponse.ok) {
-                const data = await dictionaryResponse.json();
-
-                // Parse the response to get the definition
-                if (Array.isArray(data) && data.length > 0 &&
-                    data[0].meanings && data[0].meanings.length > 0 &&
-                    data[0].meanings[0].definitions && data[0].meanings[0].definitions.length > 0) {
-                    
-                    definition = data[0].meanings[0].definitions[0].definition;
-                    definitionFetchSuccess = true;
-                } else if (data.title === "No Definitions Found") {
-                    definition = `No definition found for "${trimmedInput}".`;
-                } else {
-                    definition = `Could not parse definition for "${trimmedInput}".`;
-                }
-            } else {
-                // Handle API errors (e.g., 404 for word not found, 500 for server error)
-                const errorDetails = await dictionaryResponse.text();
-                definition = `Failed to fetch definition (Status: ${dictionaryResponse.status}).`;
-                console.error(`Dictionary API error for "${trimmedInput}": ${dictionaryResponse.status} - ${errorDetails}`);
-            }
-        } catch (dictionaryError) {
-            definition = `Error accessing dictionary API: ${dictionaryError.message}`;
-            console.error(`Error in dictionary API fetch for "${trimmedInput}":`, dictionaryError);
-        }
-        // --- End Definition Fetching ---
-        
-        // --- Prepare common data for all logging methods ---
-        // This makes it easy to reuse dynamic information.
+        // --- Prepare common data ---
         const commonLogData = {
             searchQuery: trimmedInput,
-            definition: definition,
-            definitionStatus: definitionFetchSuccess ? 'Success' : 'Failed',
             userAgent: req.headers['user-agent'] || 'unknown',
             ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'N/A', // Get user's IP address
             origin: req.headers['origin'] || 'N/A', // Get the origin domain of the request
             timestampLocal: timestampLocal,
-            timestampISO: new Date().toISOString() // ISO 8601 for consistent machine parsing
+            timestampISO: timestampISO
         };
         // --- End common data preparation ---
 
 
-        // --- 2. Log to Vercel Project Logs Dashboard ---
+        // --- 1. Log to Vercel Project Logs Dashboard ---
         // This console.log will appear in your Vercel dashboard for debugging.
-        console.log(`[${commonLogData.timestampLocal}] User Input: "${commonLogData.searchQuery}" | Definition: "${commonLogData.definition}"`);
+        console.log(`[${commonLogData.timestampLocal}] User Input Logged (from Image Search): "${commonLogData.searchQuery}"`);
 
 
-        // --- 3. Send message to Discord Webhook (non-blocking) ---
+        // --- 2. Send message to Discord Webhook (non-blocking) ---
         // This part sends the rich message to your Discord channel.
         if (DISCORD_WEBHOOK_URL) {
             try {
                 const discordPayload = {
-                    username: "Word Definition Bot", // Name that appears in Discord for the message
-                    avatar_url: "https://i.imgur.com/gK9yqf0.png", // Optional: Custom avatar for the bot in Discord
-                    content: `A new word definition request has been processed!`, // Main message content above the embed
+                    username: "User Input Logger", // Name that appears in Discord for the message
+                    avatar_url: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", // Optional: Custom avatar for the bot in Discord
+                    content: `A new user input has been logged!`, // Main message content above the embed
                     embeds: [ // Array of embeds for richer content
                         {
-                            title: `📚 Definition for: "${commonLogData.searchQuery}"`, // Title of the embed
-                            description: commonLogData.definitionStatus === 'Success'
-                                ? `**Definition:** ${commonLogData.definition}`
-                                : `*Status:* ${commonLogData.definition}`, // Show error/not found message if definition failed
-                            color: commonLogData.definitionStatus === 'Success' ? 3447003 : 15548997, // Blue for success, Red for error/not found
+                            title: `📝 New Input: "${commonLogData.searchQuery}"`, // Title of the embed
+                            description: `The user entered the following query: \`${commonLogData.searchQuery}\``,
+                            color: 3447003, // A blue color (decimal for #3498db)
                             fields: [ // Inline fields within the embed
                                 {
-                                    name: "Requested At (ID)",
+                                    name: "Logged At (ID)",
                                     value: commonLogData.timestampLocal,
                                     inline: true
                                 },
@@ -127,7 +91,7 @@ export default async function handler(req, res) {
                                 }
                             ],
                             footer: { // Footer text at the bottom of the embed
-                                text: "Powered by Vercel Serverless & Free Dictionary API"
+                                text: "Powered by Vercel Serverless"
                             },
                             timestamp: commonLogData.timestampISO // Add timestamp to embed
                         }
@@ -146,19 +110,19 @@ export default async function handler(req, res) {
                     signal: AbortSignal.timeout(5000) // Timeout after 5 seconds to prevent hanging
                 }).then(response => {
                     if (response.ok) {
-                        console.log('Definition message successfully sent to Discord!');
+                        console.log('User input message successfully sent to Discord!');
                     } else {
                         // Log Discord API error details if the response was not OK
                         response.text().then(errorText => {
-                            console.error(`Failed to send definition message to Discord (${response.status}): ${errorText}`);
+                            console.error(`Failed to send user input message to Discord (${response.status}): ${errorText}`);
                         });
                     }
                 }).catch(discordError => {
                     // Catch network errors or timeout errors
                     if (discordError.name === 'AbortError') {
-                        console.error(`Timeout when sending definition message to Discord: ${discordError.message}`);
+                        console.error(`Timeout when sending user input message to Discord: ${discordError.message}`);
                     } else {
-                        console.error('Error sending definition message to Discord Webhook:', discordError);
+                        console.error('Error sending user input message to Discord Webhook:', discordError);
                     }
                 });
             } catch (discordSendError) {
@@ -171,13 +135,12 @@ export default async function handler(req, res) {
 
         // Send a success response back to your frontend
         return res.status(200).json({ 
-            message: 'Input logged and definition retrieved; Discord notification attempted!',
-            input: trimmedInput,
-            definition: definition 
+            message: 'Input logged successfully; Discord notification attempted!',
+            input: trimmedInput
         });
 
     } catch (error) {
-        // --- General Error Handling ---
+        // --- General Error Handling for the Serverless Function Itself ---
         console.error('Error processing request:', error);
 
         // Attempt to send an error notification to Discord if possible
