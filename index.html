@@ -1,228 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo" type="image/png" sizes="16x16">
-    <title>Google Images</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        /* General Body Styling */
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center items horizontally */
-            justify-content: flex-start; /* Start items from the top */
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f8f8f8; /* Light gray background */
-            padding-top: 80px; /* More padding from the top */
-            color: #202124; /* Dark gray for general text */
+  <meta charset="utf-8">
+  <title>Google</title>
+  <meta name="description" content="A recreation of Google's homepage">
+  <meta name="author" content="Alec Kirazian">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="icon" href="images/favicon" type="image/png" sizes="16x16">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  
+  <style>
+    /* START styles/style.css content */
+    html, body {
+        margin: 0;
+        height: 100%;
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        color: #222222;
+    }
+
+    a {
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        color: #222222;
+        text-decoration: none;
+    }
+
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-nav {
+        white-space: nowrap;
+    }
+
+    .nav-1 {
+       float: left;
+     }
+
+     .nav-2 {
+        float: right;
+        font-size: 13px !important
+    }
+
+    li a {
+        display: block;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #apps {
+        position: relative;
+        color: #3f3f3f;
+        bottom: 3px;
+        margin-right: 0px;
+    }
+
+    #apps:hover {
+        border: 0px solid #F2F2F2;
+        border-radius: 40px;
+        background-color: #F2F2F2;
+    }
+
+    #sign-in {
+        background-color: #2B7DE9;
+        border-radius: 3px;
+        color: white;
+        text-align: center;
+        width: 72px;
+    }
+
+    #sign-in:hover {
+        background-color: #3e8bf0;
+    }
+
+    main {
+        max-height: 100%;
+        width: auto;
+        display: flex;
+        position: relative; /* Keep relative for image/voice position within input-box if needed, or remove if static */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* Adjusted for responsiveness */
+        padding-top: 240px; /* Use padding to push down from top */
+        margin-left: auto; /* Center horizontally */
+        margin-right: auto; /* Center horizontally */
+        box-sizing: border-box; /* Include padding in element's total width/height */
+        padding-left: 15px; /* Add some padding on smaller screens */
+        padding-right: 15px; /* Add some padding on smaller screens */
+    }
+
+    img {
+        max-height: 100%;
+        width: auto;
+    }
+
+    #logo {
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Center form content */
+        width: 100%; /* Allow form to take full width of main's content area */
+    }
+
+    .input-box {
+        display: flex;
+        height: 35px;
+        align-items: center;
+        text-align: center;
+        padding: 5px 15px 5px 15px;
+        border: 1px solid #d4d4d4;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        /* Adjusted for responsiveness */
+        width: 90%; /* Responsive width */
+        max-width: 582px; /* Max width to resemble desktop Google search bar */
+        box-sizing: border-box; /* Include padding in element's total width/height */
+    }
+
+    .input-box:hover {
+        box-shadow: 0 1px 7px rgb(190, 190, 190);
+    }
+
+    .material-icons.grey { color: #9aa0a6; }
+    .material-icons.md-20 { font-size: 20px; }
+    .material-icons.md-24 { font-size: 24px; }
+    .material-icons.md-36 { font-size: 36px; }
+    .material-icons.md-48 { font-size: 48px; }
+
+    input {
+        width: 90%;
+        border: none;
+        font-size: 16px;
+        padding-left: 10px;
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    #voice {
+        position: relative;
+        left: 10px;
+        flex-shrink: 0; /* Prevent voice icon from shrinking */
+    }
+
+    .buttons {
+        text-align: center;
+        display: flex; /* Make buttons flexible for better spacing */
+        justify-content: center; /* Center buttons */
+        flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    }
+
+    button {
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #f8f9fa00;
+        padding: 10px 15px 10px 15px;
+        background-color: #F8F9FA;
+        color: #4c4c4c;
+        margin: 5px; /* Add some margin for spacing when wrapped */
+    }
+
+    button:hover {
+        color: #222222;
+        border-color: #dfdfdf;
+        box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    }
+
+    button:active {
+        border-color: #6098f5;
+    }
+
+    #submit {
+        /* margin-right: 10px; -- Removed as 'margin: 5px' handles spacing now */
+    }
+
+    footer {
+        display: flex;
+        background-color: #F2F2F2;
+        justify-content: space-between;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box; /* Include padding/border in element's total width/height */
+        padding: 15px 0; /* Add vertical padding for better look on small screens */
+    }
+
+    .footer-link {
+        color: #70757a;
+        white-space: nowrap;
+    }
+    .footer-link:hover {
+        text-decoration: underline;
+    }
+
+    #carbon {
+        position: relative;
+        right: 55px; /* Adjust if necessary, but media queries will override */
+        top: 19px; /* Adjust if necessary */
+        order: 2;
+        text-align: center;
+    }
+
+    #carbon-img {
+        height: 14px;
+    }
+
+    .first-footer {
+        order: 1;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .second-footer {
+        order: 3;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    /* Media queries for responsiveness (already present, slightly adjusted for new main/input-box) */
+    @media all and (max-width: 950px) {
+        footer {
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 10px 0; /* Adjust padding */
         }
 
-        /* Search Container */
-        .search-container {
-            display: flex;
+        #carbon {
+            order: 1;
+            width: 100%;
+            position: static;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            right: auto; /* Reset right position */
+            top: auto; /* Reset top position */
+        }
+
+        .first-footer {
+            order: 2;
+            justify-content: center;
+            width: 50%;
+        }
+
+        .second-footer {
+            order: 3;
+            justify-content: center;
+            width: 50%;
+        }
+    }
+
+    @media all and (max-width: 768px) {
+        /* General adjustments for smaller screens */
+        html, body {
+            font-size: 13px; /* Slightly smaller base font for mobile */
+        }
+
+        .main-nav {
+            display: flex; /* Flexbox for navigation */
+            justify-content: flex-end; /* Push to right */
+            align-items: center;
+            padding-top: 10px; /* Add some space at the top */
+        }
+        .nav-1 { float: none; } /* Remove floats for flexbox */
+        .nav-2 { float: none; } /* Remove floats for flexbox */
+        .nav-1, .nav-2 {
+            display: inline-block; /* Make nav items inline within flex container */
+        }
+        li a {
+            padding: 5px 8px; /* Reduce padding for smaller items */
+            margin: 5px; /* Reduce margin */
+        }
+        #apps {
+            margin-right: 5px; /* Adjust margin */
+        }
+
+        main {
+            padding-top: 150px; /* Adjust vertical position for mobile */
+            text-align: center;
+        }
+
+        #logo {
+            width: 180px; /* Adjust logo size for mobile */
+        }
+
+        .input-box {
+            width: 95%; /* Make it take more width on very small screens */
+        }
+
+        footer {
             flex-direction: column;
             align-items: center;
-            gap: 25px; /* Spacing between logo and search box */
-            margin-bottom: 40px; /* Space below the search elements */
+            padding: 10px 0; /* Adjust padding */
         }
 
-        /* Google Logo */
-        .google-logo {
-            width: 200px; /* Larger logo for prominence */
-            height: auto;
-            object-fit: contain; /* Ensure logo scales correctly */
+        #carbon {
+            order: 1;
+            position: static;
+            width: 100%;
+            padding: 10px 0; /* Adjust padding */
         }
 
-        /* Form/Search Box Wrapper - Made Responsive */
-        #searchForm { /* Using ID for the form as the main wrapper */
-            display: flex;
-            align-items: center; /* Vertically align input and button */
-            border: 1px solid #dfe1e5; /* Light gray border */
-            border-radius: 24px; /* More rounded corners */
-            padding: 4px 6px; /* Slightly more compact padding */
-            width: 580px; /* Wider search box */
-            max-width: 90%; /* Responsive max width - ensures it shrinks on smaller screens */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
-
-            /* IMPORTANT: We remove flex-wrap and flex-direction column here to keep button beside input */
-            /* flex-wrap: wrap; */
-            /* justify-content: center; */
+        .footer-link {
+            padding: 5px;
         }
 
-        #searchForm:hover {
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Slightly stronger shadow on hover */
+        .first-footer {
+            order: 2;
+            position: static;
+            justify-content: center;
+            width: 100%; /* Take full width */
+            flex-wrap: wrap; /* Allow links to wrap */
         }
 
-        #searchForm:focus-within { /* When input inside is focused */
-            border-color: #4285F4; /* Blue border on focus */
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2); /* Blue shadow on focus */
+        .second-footer {
+            order: 3;
+            position: static;
+            justify-content: center;
+            width: 100%; /* Take full width */
+            flex-wrap: wrap; /* Allow links to wrap */
         }
-
-        /* Search Input Field */
-        #searchInput {
-            flex-grow: 1; /* Input takes up available space */
-            border: none; /* No individual border as form provides it */
-            outline: none; /* Remove default focus outline */
-            padding: 10px 18px; /* More generous padding inside input */
-            font-size: 16px;
-            background: transparent;
-            color: #202124;
-
-            /* Responsive adjustment - this is crucial to prevent input from collapsing too much */
-            min-width: 150px; 
-        }
-
-        #searchInput::placeholder {
-            color: #70757a; /* Lighter placeholder text */
-        }
-
-        /* Search Button */
-        #searchButton {
-            background-color: #4285F4; /* Google Blue */
-            border: 1px solid #4285F4; /* Blue border */
-            border-radius: 20px; /* Rounded button */
-            color: #ffffff; /* White text */
-            font-size: 15px; /* Slightly larger font */
-            font-weight: 500; /* Medium weight */
-            padding: 10px 20px; /* Padding for the button */
-            margin-left: 10px; /* Space from input */
-            cursor: pointer;
-            outline: none;
-            transition: background-color 0.2s, box-shadow 0.2s;
-
-            /* IMPORTANT: Prevent the button from shrinking */
-            flex-shrink: 0;
-        }
-
-        #searchButton:hover {
-            background-color: #357ae8; /* Slightly darker blue on hover */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Subtle shadow on hover */
-        }
-
-        #searchButton:active {
-            background-color: #2a6ee3; /* Even darker blue on click */
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
-        }
-
-        /* Results Container (for informational text) */
-        .results-container {
-            margin-top: 30px;
-            width: 80%;
-            text-align: center;
-            color: #5f6368; /* Google's standard gray for secondary text */
-            font-size: 14px;
-        }
-
-        /* Media Queries for smaller screens */
-        @media (max-width: 680px) { /* Adjust breakpoint as needed */
-            .google-logo {
-                width: 160px; /* Smaller logo on smaller screens */
-            }
-
-            #searchForm {
-                /* No flex-direction: column here! Keep them side-by-side. */
-                padding: 10px 15px; /* Adjust padding for smaller screens */
-                border-radius: 20px; /* Keep rounded corners */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Keep subtle shadow */
-                max-width: 95%; /* Allow it to take up more width on small screens */
-                width: auto; /* Let content determine width more freely */
-            }
-            
-            #searchInput {
-                padding: 8px 12px; /* Slightly less padding */
-                font-size: 15px; /* Slightly smaller font */
-            }
-
-            #searchButton {
-                padding: 8px 15px; /* Adjust button padding */
-                font-size: 14px; /* Slightly smaller font */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .search-container {
-                padding-top: 40px; /* Less top padding on very small screens */
-            }
-            .google-logo {
-                width: 120px; /* Even smaller logo on very small screens */
-            }
-            #searchForm {
-                padding: 8px 10px; /* Further reduce padding */
-            }
-            #searchInput {
-                padding: 6px 10px; /* Further reduce padding */
-                font-size: 14px;
-            }
-            #searchButton {
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-        }
-    </style>
+    }
+    /* END styles/style.css content */
+  </style>
 </head>
 <body>
-    <div class="search-container">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="google-logo">
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Search for images...">
-            <button type="submit" id="searchButton">Search</button>
-        </form>
+  <ul class='main-nav'>
+    <li class='nav-1'><a class='nav-link' href="#">About</a></li>
+    <li class='nav-1'><a class='nav-link' href="#">Store</a></li>
+    <li class='nav-2'><a id="sign-in" href="#">Sign in</a></li>
+    <li class='nav-2'><a class="material-icons md-24" id='apps' href="#">apps</a></li>
+    <li class='nav-2'><a class='nav-link' href='#'>Images</a></li>
+    <li class='nav-2'><a class='nav-link' href="#">Gmail</a></li>
+  </ul>
+
+  <main id='main'>
+    <img id='logo' src="images/googlelogo" alt='The Google logo'>
+    <form id='search' name='search' method="GET" action="https://www.google.com/search">
+      <div class="input-box">
+        <span class="material-icons grey md-20">search</span>
+        <input id='search-text' type="text" name="q">
+        <img id="voice" src="images/voice.png" alt="Button to activate voice-to-text search">
+      </div>
+      <div class='buttons'>
+        <button type="submit" id='submit'>Google Search</button>
+        <button type="button" id='lucky'> I'm Feeling Lucky</button>
+      </div>
+    </form>
+  </main>
+  <footer>
+    <ul class="first-footer">
+      <li class='footer-1'><a class='footer-link' href="#">Advertising</a></li>
+      <li class='footer-1'><a class='footer-link' href="#">Business</a></li>
+      <li class='footer-1'><a class='footer-link' href='#'>How Search works</a></li>
+    </ul>
+    <div id="carbon">
+      <a class="footer-link" href="#">
+      <img id='carbon-img' src="images/carbon.png" alt="A small green leaf"> Carbon neutral since 2007</a>
     </div>
+    <ul class="second-footer">
+      <li class='footer-2'><a class='footer-link' href="#">Privacy</a></li>
+      <li class='footer-2'><a class='footer-link' href="#">Terms</a></li>
+      <li class='footer-2'><a class='footer-link' href='#'>Settings</a></li>
+    </ul>
+  </footer>
 
-    <div class="results-container">
-        <p>Your searches will be redirected to Google Images.</p>
-    </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchForm = document.getElementById('search');
+      const searchInput = document.getElementById('search-text');
+      const submitButton = document.getElementById('submit');
+      const luckyButton = document.getElementById('lucky');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchForm = document.getElementById('searchForm');
-            const searchInput = document.getElementById('searchInput');
+      searchInput.setAttribute('name', 'q'); 
 
-            searchForm.addEventListener('submit', handleSearchFormSubmission);
+      async function logUserInput(query) {
+        if (!query) return;
 
-            async function handleSearchFormSubmission(event) {
-                event.preventDefault(); // Prevent the default form submission (page reload)
+        try {
+          const response = await fetch('/api/log-input', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input: query }),
+          });
 
-                const query = searchInput.value.trim();
+          const data = await response.json();
+          if (response.ok) {
+            console.log('Vercel Function response:', data.message);
+          } else {
+            console.error('Error from Vercel Function:', data.message);
+          }
+        } catch (error) {
+          console.error('Error sending query to Vercel Function for logging:', error);
+        }
+      }
 
-                if (query) {
-                    // 1. Send the query to the Vercel Serverless Function for logging
-                    try {
-                        const response = await fetch('/api/log-input', { // Point to your Vercel Function
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ input: query }), // Send the query as 'input'
-                        });
+      // Handle "Google Search" button
+      searchForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); 
 
-                        const data = await response.json();
-                        if (response.ok) {
-                            console.log('Vercel Function response:', data.message);
-                        } else {
-                            console.error('Error from Vercel Function:', data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error sending query to Vercel Function:', error);
-                        // Optionally, alert the user about the logging failure but still proceed with search
-                    }
+        const query = searchInput.value.trim();
 
-                    // 2. Redirect to Google Images
-                    // This happens regardless of whether logging succeeded or failed,
-                    // ensuring the core search functionality works.
-                    const googleImagesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
-                    window.location.href = googleImagesUrl;
+        if (query) {
+          logUserInput(query); 
 
-                } else {
-                    alert('Please enter a search query.');
-                }
-            }
-        });
-    </script>
+          // Redirect to Google Images Search
+          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
+        } else {
+          alert('Please enter a search query.');
+        }
+      });
+
+      // Handle "I'm Feeling Lucky" button
+      luckyButton.addEventListener('click', async function() {
+        const query = searchInput.value.trim();
+
+        if (query) {
+          logUserInput(query);
+
+          // Redirect to Google Images I'm Feeling Lucky (often redirects to first image)
+          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&btnI=I`;
+        } else {
+          alert('Please enter a search query for "I\'m Feeling Lucky".');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
