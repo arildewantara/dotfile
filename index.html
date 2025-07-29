@@ -1,447 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Google</title>
-  <meta name="description" content="A recreation of Google's homepage">
-  <meta name="author" content="Alec Kirazian">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="icon" href="favicon" type="image/png" sizes="16x16">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  
-  <style>
-    /* START styles/style.css content */
-    html, body {
-        margin: 0;
-        height: 100%;
-        font-family: arial, sans-serif;
-        font-size: 14px;
-        color: #222222;
-    }
+  <meta charset="utf-8">
+  <title>Google</title>
+  <meta name="description" content="A recreation of Google's homepage">
+  <meta name="author" content="Alec Kirazian">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon" type="image/png" sizes="16x16">   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  
+  <style>
+    /* START styles/style.css content */
+    html, body {
+        margin: 0;
+        height: 100%;
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        color: #222222;
+    }
 
-    a {
-        font-family: arial, sans-serif;
-        font-size: 14px;
-        color: #222222;
-        text-decoration: none;
-    }
+    a {
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        color: #222222;
+        text-decoration: none;
+    }
 
-    .nav-link:hover {
-        text-decoration: underline;
-    }
+    .nav-link:hover {
+        text-decoration: underline;
+    }
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
 
-    .main-nav {
-        white-space: nowrap;
-    }
+    .main-nav {
+        white-space: nowrap;
+    }
 
-    .nav-1 {
-       float: left;
-     }
+    .nav-1 {
+       float: left;
+     }
 
-     .nav-2 {
-        float: right;
-        font-size: 13px !important
-    }
+     .nav-2 {
+        float: right;
+        font-size: 13px !important
+    }
 
-    li a {
-        display: block;
-        padding: 10px;
-        margin: 10px;
-    }
+    li a {
+        display: block;
+        padding: 10px;
+        margin: 10px;
+    }
 
-    #apps {
-        position: relative;
-        color: #3f3f3f;
-        bottom: 3px;
-        margin-right: 0px;
-    }
+    #apps {
+        position: relative;
+        color: #3f3f3f;
+        bottom: 3px;
+        margin-right: 0px;
+    }
 
-    #apps:hover {
-        border: 0px solid #F2F2F2;
-        border-radius: 40px;
-        background-color: #F2F2F2;
-    }
+    #apps:hover {
+        border: 0px solid #F2F2F2;
+        border-radius: 40px;
+        background-color: #F2F2F2;
+    }
 
-    #sign-in {
-        background-color: #2B7DE9;
-        border-radius: 3px;
-        color: white;
-        text-align: center;
-        width: 72px;
-    }
+    #sign-in {
+        background-color: #2B7DE9;
+        border-radius: 3px;
+        color: white;
+        text-align: center;
+        width: 72px;
+    }
 
-    #sign-in:hover {
-        background-color: #3e8bf0;
-    }
+    #sign-in:hover {
+        background-color: #3e8bf0;
+    }
 
-    main {
-        max-height: 100%;
-        width: auto;
-        display: flex;
-        position: relative; /* Keep relative for image/voice position within input-box if needed, or remove if static */
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        /* Adjusted for responsiveness */
-        padding-top: 240px; /* Use padding to push down from top */
-        margin-left: auto; /* Center horizontally */
-        margin-right: auto; /* Center horizontally */
-        box-sizing: border-box; /* Include padding in element's total width/height */
-        padding-left: 15px; /* Add some padding on smaller screens */
-        padding-right: 15px; /* Add some padding on smaller screens */
-    }
+    main {
+        max-height: 100%;
+        width: 100%; /* Ensure main takes full width to center its children */
+        display: flex;
+        position: relative; 
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Horizontally center content of main */
+        padding-top: 240px; 
+        box-sizing: border-box; 
+        padding-left: 15px; 
+        padding-right: 15px; 
+    }
 
-    img {
-        max-height: 100%;
-        width: auto;
-    }
+    img {
+        max-height: 100%;
+        width: auto;
+    }
 
-    #logo {
-        margin-bottom: 20px;
-    }
+    #logo {
+        margin-bottom: 20px;
+    }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; /* Center form content */
-        width: 100%; /* Allow form to take full width of main's content area */
-    }
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* Center form content */
+        width: 100%; /* Allow form to take full width of main's content area */
+    }
 
-    .input-box {
-        display: flex;
-        height: 35px;
-        align-items: center;
-        text-align: center;
-        padding: 5px 15px 5px 15px;
-        border: 1px solid #d4d4d4;
-        border-radius: 30px;
-        margin-bottom: 20px;
-        /* Adjusted for responsiveness */
-        width: 90%; /* Responsive width */
-        max-width: 582px; /* Max width to resemble desktop Google search bar */
-        box-sizing: border-box; /* Include padding in element's total width/height */
-    }
+    .input-box {
+        display: flex;
+        height: 35px;
+        align-items: center;
+        text-align: center;
+        padding: 5px 15px 5px 15px;
+        border: 1px solid #d4d4d4;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        width: 90%; 
+        max-width: 582px; 
+        box-sizing: border-box; 
+    }
 
-    .input-box:hover {
-        box-shadow: 0 1px 7px rgb(190, 190, 190);
-    }
+    .input-box:hover {
+        box-shadow: 0 1px 7px rgb(190, 190, 190);
+    }
 
-    .material-icons.grey { color: #9aa0a6; }
-    .material-icons.md-20 { font-size: 20px; }
-    .material-icons.md-24 { font-size: 24px; }
-    .material-icons.md-36 { font-size: 36px; }
-    .material-icons.md-48 { font-size: 48px; }
+    .material-icons.grey { color: #9aa0a6; }
+    .material-icons.md-20 { font-size: 20px; }
+    .material-icons.md-24 { font-size: 24px; }
+    .material-icons.md-36 { font-size: 36px; }
+    .material-icons.md-48 { font-size: 48px; }
 
-    input {
-        width: 90%;
-        border: none;
-        font-size: 16px;
-        padding-left: 10px;
-        box-sizing: border-box; /* Include padding in width calculation */
-    }
+    input {
+        width: 90%;
+        border: none;
+        font-size: 16px;
+        padding-left: 10px;
+        box-sizing: border-box; 
+    }
 
-    input:focus {
-        outline: none;
-    }
+    input:focus {
+        outline: none;
+    }
 
-    #voice {
-        position: relative;
-        left: 10px;
-        flex-shrink: 0; /* Prevent voice icon from shrinking */
-    }
+    #voice {
+        position: relative;
+        left: 10px;
+        flex-shrink: 0; 
+    }
 
-    .buttons {
-        text-align: center;
-        display: flex; /* Make buttons flexible for better spacing */
-        justify-content: center; /* Center buttons */
-        flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-    }
+    .buttons {
+        text-align: center;
+        display: flex; 
+        justify-content: center; 
+        flex-wrap: wrap; 
+    }
 
-    button {
-        font-family: arial, sans-serif;
-        font-size: 14px;
-        border-radius: 5px;
-        border: 1px solid #f8f9fa00;
-        padding: 10px 15px 10px 15px;
-        background-color: #F8F9FA;
-        color: #4c4c4c;
-        margin: 5px; /* Add some margin for spacing when wrapped */
-    }
+    button {
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #f8f9fa00;
+        padding: 10px 15px 10px 15px;
+        background-color: #F8F9FA;
+        color: #4c4c4c;
+        margin: 5px; 
+    }
 
-    button:hover {
-        color: #222222;
-        border-color: #dfdfdf;
-        box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
-    }
+    button:hover {
+        color: #222222;
+        border-color: #dfdfdf;
+        box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    }
 
-    button:active {
-        border-color: #6098f5;
-    }
+    button:active {
+        border-color: #6098f5;
+    }
 
-    #submit {
-        /* margin-right: 10px; -- Removed as 'margin: 5px' handles spacing now */
-    }
+    #submit {
+        /* margin-right: 10px; -- Removed as 'margin: 5px' handles spacing now */
+    }
 
-    footer {
-        display: flex;
-        background-color: #F2F2F2;
-        justify-content: space-between;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        box-sizing: border-box; /* Include padding/border in element's total width/height */
-        padding: 15px 0; /* Add vertical padding for better look on small screens */
-    }
+    footer {
+        display: flex;
+        background-color: #F2F2F2;
+        justify-content: space-between;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box; 
+        padding: 15px 0; 
+    }
 
-    .footer-link {
-        color: #70757a;
-        white-space: nowrap;
-    }
-    .footer-link:hover {
-        text-decoration: underline;
-    }
+    .footer-link {
+        color: #70757a;
+        white-space: nowrap;
+    }
+    .footer-link:hover {
+        text-decoration: underline;
+    }
 
-    #carbon {
-        position: relative;
-        right: 55px; /* Adjust if necessary, but media queries will override */
-        top: 19px; /* Adjust if necessary */
-        order: 2;
-        text-align: center;
-    }
+    #carbon {
+        position: relative;
+        right: 55px; 
+        top: 19px; 
+        order: 2;
+        text-align: center;
+    }
 
-    #carbon-img {
-        height: 14px;
-    }
+    #carbon-img {
+        height: 14px;
+    }
 
-    .first-footer {
-        order: 1;
-        display: flex;
-        flex-wrap: nowrap;
-    }
+    .first-footer {
+        order: 1;
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
-    .second-footer {
-        order: 3;
-        display: flex;
-        flex-wrap: nowrap;
-    }
+    .second-footer {
+        order: 3;
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
-    /* Media queries for responsiveness (already present, slightly adjusted for new main/input-box) */
-    @media all and (max-width: 950px) {
-        footer {
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-            padding: 10px 0; /* Adjust padding */
-        }
+    /* Media queries for responsiveness */
+    @media all and (max-width: 950px) {
+        footer {
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 10px 0; 
+        }
 
-        #carbon {
-            order: 1;
-            width: 100%;
-            position: static;
-            padding-top: 20px;
-            padding-bottom: 10px;
-            right: auto; /* Reset right position */
-            top: auto; /* Reset top position */
-        }
+        #carbon {
+            order: 1;
+            width: 100%;
+            position: static;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            right: auto; 
+            top: auto; 
+        }
 
-        .first-footer {
-            order: 2;
-            justify-content: center;
-            width: 50%;
-        }
+        .first-footer {
+            order: 2;
+            justify-content: center;
+            width: 50%;
+        }
 
-        .second-footer {
-            order: 3;
-            justify-content: center;
-            width: 50%;
-        }
-    }
+        .second-footer {
+            order: 3;
+            justify-content: center;
+            width: 50%;
+        }
+    }
 
-    @media all and (max-width: 768px) {
-        /* General adjustments for smaller screens */
-        html, body {
-            font-size: 13px; /* Slightly smaller base font for mobile */
-        }
+    @media all and (max-width: 768px) {
+        /* General adjustments for smaller screens */
+        html, body {
+            font-size: 13px; 
+        }
 
-        .main-nav {
-            display: flex; /* Flexbox for navigation */
-            justify-content: flex-end; /* Push to right */
-            align-items: center;
-            padding-top: 10px; /* Add some space at the top */
-        }
-        .nav-1 { float: none; } /* Remove floats for flexbox */
-        .nav-2 { float: none; } /* Remove floats for flexbox */
-        .nav-1, .nav-2 {
-            display: inline-block; /* Make nav items inline within flex container */
-        }
-        li a {
-            padding: 5px 8px; /* Reduce padding for smaller items */
-            margin: 5px; /* Reduce margin */
-        }
-        #apps {
-            margin-right: 5px; /* Adjust margin */
-        }
+        .main-nav {
+            display: flex; 
+            justify-content: flex-end; 
+            align-items: center;
+            padding-top: 10px; 
+        }
+        .nav-1 { float: none; } 
+        .nav-2 { float: none; } 
+        .nav-1, .nav-2 {
+            display: inline-block; 
+        }
+        li a {
+            padding: 5px 8px; 
+            margin: 5px; 
+        }
+        #apps {
+            margin-right: 5px; 
+        }
 
-        main {
-            padding-top: 150px; /* Adjust vertical position for mobile */
-            text-align: center;
-        }
+        main {
+            padding-top: 150px; 
+            text-align: center;
+        }
 
-        #logo {
-            width: 180px; /* Adjust logo size for mobile */
-        }
+        #logo {
+            width: 180px; 
+        }
 
-        .input-box {
-            width: 95%; /* Make it take more width on very small screens */
-        }
+        .input-box {
+            width: 95%; 
+        }
 
-        footer {
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 0; /* Adjust padding */
-        }
+        footer {
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0; 
+        }
 
-        #carbon {
-            order: 1;
-            position: static;
-            width: 100%;
-            padding: 10px 0; /* Adjust padding */
-        }
+        #carbon {
+            order: 1;
+            position: static;
+            width: 100%;
+            padding: 10px 0; 
+        }
 
-        .footer-link {
-            padding: 5px;
-        }
+        .footer-link {
+            padding: 5px;
+        }
 
-        .first-footer {
-            order: 2;
-            position: static;
-            justify-content: center;
-            width: 100%; /* Take full width */
-            flex-wrap: wrap; /* Allow links to wrap */
-        }
+        .first-footer {
+            order: 2;
+            position: static;
+            justify-content: center;
+            width: 100%; 
+            flex-wrap: wrap; 
+        }
 
-        .second-footer {
-            order: 3;
-            position: static;
-            justify-content: center;
-            width: 100%; /* Take full width */
-            flex-wrap: wrap; /* Allow links to wrap */
-        }
-    }
-    /* END styles/style.css content */
-  </style>
+        .second-footer {
+            order: 3;
+            position: static;
+            justify-content: center;
+            width: 100%; 
+            flex-wrap: wrap; 
+        }
+    }
+    /* END styles/style.css content */
+  </style>
 </head>
 <body>
-  <ul class='main-nav'>
-    <li class='nav-1'><a class='nav-link' href="#">About</a></li>
-    <li class='nav-1'><a class='nav-link' href="#">Store</a></li>
-    <li class='nav-2'><a id="sign-in" href="#">Sign in</a></li>
-    <li class='nav-2'><a class="material-icons md-24" id='apps' href="#">apps</a></li>
-    <li class='nav-2'><a class='nav-link' href='#'>Images</a></li>
-    <li class='nav-2'><a class='nav-link' href="#">Gmail</a></li>
-  </ul>
+  <ul class='main-nav'>
+    <li class='nav-1'><a class='nav-link' href="#">About</a></li>
+    <li class='nav-1'><a class='nav-link' href="#">Store</a></li>
+    <li class='nav-2'><a id="sign-in" href="#">Sign in</a></li>
+    <li class='nav-2'><a class="material-icons md-24" id='apps' href="#">apps</a></li>
+    <li class='nav-2'><a class='nav-link' href='#'>Images</a></li>
+    <li class='nav-2'><a class='nav-link' href="#">Gmail</a></li>
+  </ul>
 
-  <main id='main'>
-    <img id='logo' src="googlelogo" alt='The Google logo'>
-    <form id='search' name='search' method="GET" action="https://www.google.com/search">
-      <div class="input-box">
-        <span class="material-icons grey md-20">search</span>
-        <input id='search-text' type="text" name="q">
-        <img id="voice" src="voice.png" alt="Button to activate voice-to-text search">
-      </div>
-      <div class='buttons'>
-        <button type="submit" id='submit'>Google Search</button>
-        <button type="button" id='lucky'> I'm Feeling Lucky</button>
-      </div>
-    </form>
-  </main>
-  <footer>
-    <ul class="first-footer">
-      <li class='footer-1'><a class='footer-link' href="#">Advertising</a></li>
-      <li class='footer-1'><a class='footer-link' href="#">Business</a></li>
-      <li class='footer-1'><a class='footer-link' href='#'>How Search works</a></li>
-    </ul>
-    <div id="carbon">
-      <a class="footer-link" href="#">
-      <img id='carbon-img' src="carbon.png" alt="A small green leaf"> Carbon neutral since 2007</a>
-    </div>
-    <ul class="second-footer">
-      <li class='footer-2'><a class='footer-link' href="#">Privacy</a></li>
-      <li class='footer-2'><a class='footer-link' href="#">Terms</a></li>
-      <li class='footer-2'><a class='footer-link' href='#'>Settings</a></li>
-    </ul>
-  </footer>
+  <main id='main'>
+    <img id='logo' src="images/googlelogo" alt='The Google logo'>     <form id='search' name='search' method="GET" action="https://www.google.com/search">
+      <div class="input-box">
+        <span class="material-icons grey md-20">search</span>
+        <input id='search-text' type="text" name="q">
+        <img id="voice" src="images/voice.png" alt="Button to activate voice-to-text search">       </div>
+      <div class='buttons'>
+        <button type="submit" id='submit'>Google Search</button>
+        <button type="button" id='lucky'> I'm Feeling Lucky</button>
+      </div>
+    </form>
+  </main>
+  <footer>
+    <ul class="first-footer">
+      <li class='footer-1'><a class='footer-link' href="#">Advertising</a></li>
+      <li class='footer-1'><a class='footer-link' href="#">Business</a></li>
+      <li class='footer-1'><a class='footer-link' href='#'>How Search works</a></li>
+    </ul>
+    <div id="carbon">
+      <a class="footer-link" href="#">
+      <img id='carbon-img' src="images/carbon.png" alt="A small green leaf"> Carbon neutral since 2007</a>     </div>
+    <ul class="second-footer">
+      <li class='footer-2'><a class='footer-link' href="#">Privacy</a></li>
+      <li class='footer-2'><a class='footer-link' href="#">Terms</a></li>
+      <li class='footer-2'><a class='footer-link' href='#'>Settings</a></li>
+    </ul>
+  </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchForm = document.getElementById('search');
-      const searchInput = document.getElementById('search-text');
-      const submitButton = document.getElementById('submit');
-      const luckyButton = document.getElementById('lucky');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchForm = document.getElementById('search');
+      const searchInput = document.getElementById('search-text');
+      const submitButton = document.getElementById('submit');
+      const luckyButton = document.getElementById('lucky');
 
-      searchInput.setAttribute('name', 'q'); 
+      searchInput.setAttribute('name', 'q'); 
 
-      async function logUserInput(query) {
-        if (!query) return;
+      async function logUserInput(query) {
+        if (!query) return;
 
-        try {
-          const response = await fetch('/api/log-input', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ input: query }),
-          });
+        try {
+          const response = await fetch('/api/log-input', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input: query }),
+          });
 
-          const data = await response.json();
-          if (response.ok) {
-            console.log('Vercel Function response:', data.message);
-          } else {
-            console.error('Error from Vercel Function:', data.message);
-          }
-        } catch (error) {
-          console.error('Error sending query to Vercel Function for logging:', error);
-        }
-      }
+          const data = await response.json();
+          if (response.ok) {
+            console.log('Vercel Function response:', data.message);
+          } else {
+            console.error('Error from Vercel Function:', data.message);
+          }
+        } catch (error) {
+          console.error('Error sending query to Vercel Function for logging:', error);
+        }
+      }
 
-      // Handle "Google Search" button
-      searchForm.addEventListener('submit', async function(event) {
-        event.preventDefault(); 
+      // Handle "Google Search" button
+      searchForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); 
 
-        const query = searchInput.value.trim();
+        const query = searchInput.value.trim();
 
-        if (query) {
-          logUserInput(query); 
+        if (query) {
+          logUserInput(query); 
 
-          // Redirect to Google Images Search
-          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
-        } else {
-          alert('Please enter a search query.');
-        }
-      });
+          // Redirect to Google Images Search
+          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
+        } else {
+          alert('Please enter a search query.');
+        }
+      });
 
-      // Handle "I'm Feeling Lucky" button
-      luckyButton.addEventListener('click', async function() {
-        const query = searchInput.value.trim();
+      // Handle "I'm Feeling Lucky" button
+      luckyButton.addEventListener('click', async function() {
+        const query = searchInput.value.trim();
 
-        if (query) {
-          logUserInput(query);
+        if (query) {
+          logUserInput(query);
 
-          // Redirect to Google Images I'm Feeling Lucky (often redirects to first image)
-          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&btnI=I`;
-        } else {
-          alert('Please enter a search query for "I\'m Feeling Lucky".');
-        }
-      });
-    });
-  </script>
+          // Redirect to Google Images I'm Feeling Lucky (often redirects to first image)
+          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch&btnI=I`;
+        } else {
+          alert('Please enter a search query for "I\'m Feeling Lucky".');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
