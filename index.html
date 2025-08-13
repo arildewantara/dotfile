@@ -407,12 +407,12 @@
                     document.body.removeAttribute('data-theme');
                     localStorage.setItem('theme', 'light');
                     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                    googleLogo.src = 'googlelogo';
                 } else {
                     document.body.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
                     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                    googleLogo.src = 'googlelogo';
                 }
             });
             
