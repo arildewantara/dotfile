@@ -55,7 +55,8 @@ export default async function handler(req, res) {
 
 			// This console.log will appear in your Vercel project's logs (dashboard)
 
-			console.log(`[${timestamp}] User Input Logged: "${input}"`);
+			// console.log(`[${timestamp}] User Input Logged: "${input}"`);
+			console.log("${input}");
 
 
 
