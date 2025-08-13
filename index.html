@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google</title>
-    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --background-color: #ffffff;
@@ -20,6 +21,7 @@
             --header-border: #ebebeb;
             --link-color: #1a0dab;
             --visited-link: #681da8;
+            --blue: #1a73e8;
         }
 
         [data-theme="dark"] {
@@ -35,32 +37,41 @@
             --header-border: #3c4043;
             --link-color: #8ab4f8;
             --visited-link: #c58af9;
+            --blue: #8ab4f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: var(--background-color);
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
+        /* Header Styles */
         .header {
             display: flex;
             justify-content: flex-end;
-            padding: 6px 20px;
+            padding: 10px 16px;
             align-items: center;
-            gap: 15px;
-            font-size: 13px;
+            gap: 18px;
         }
 
         .header-link {
             color: var(--text-color);
             text-decoration: none;
+            font-size: 13px;
+            padding: 5px;
         }
 
         .header-link:hover {
@@ -76,6 +87,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-color);
         }
 
         .theme-toggle:hover {
@@ -86,18 +98,20 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .theme-icon {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-color);
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
         }
 
-        .apps-icon {
-            width: 24px;
-            height: 24px;
-            fill: var(--text-color);
-        }
-
+        /* Main Content */
         .main-content {
             flex: 1;
             display: flex;
@@ -105,7 +119,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            margin-top: -100px;
+            margin-top: -60px;
         }
 
         .google-logo {
@@ -114,10 +128,24 @@
             margin-bottom: 26px;
         }
 
+        @media (max-width: 768px) {
+            .google-logo {
+                width: 200px;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .google-logo {
+                width: 150px;
+            }
+        }
+
         .search-container {
             width: 100%;
             max-width: 584px;
             position: relative;
+            margin: 0 auto;
         }
 
         .search-box {
@@ -144,6 +172,7 @@
             font-size: 16px;
             background: transparent;
             color: var(--text-color);
+            height: 34px;
         }
 
         .search-input::placeholder {
@@ -151,10 +180,10 @@
         }
 
         .search-icon {
+            color: var(--secondary-text);
             width: 20px;
             height: 20px;
-            margin-right: 10px;
-            fill: var(--secondary-text);
+            margin: 0 10px;
         }
 
         .search-buttons {
@@ -180,43 +209,44 @@
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
 
+        /* Footer */
         .footer {
             background-color: var(--background-color);
             border-top: 1px solid var(--border-color);
             padding: 15px 20px;
-            font-size: 14px;
             color: var(--secondary-text);
         }
 
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+        .footer-location {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .footer-links {
             display: flex;
-            gap: 20px;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
+            padding-top: 15px;
+        }
+
+        .footer-links-left, .footer-links-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
         }
 
         .footer-link {
             color: var(--secondary-text);
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .footer-link:hover {
             text-decoration: underline;
         }
 
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .google-logo {
-                width: 200px;
-                height: auto;
-            }
-            
             .search-box {
                 padding: 6px 12px;
             }
@@ -227,82 +257,114 @@
             
             .search-buttons {
                 flex-direction: column;
-                width: 100%;
+                align-items: center;
             }
             
             .search-button {
-                width: 100%;
+                width: 200px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .footer-links-left, .footer-links-right {
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
             .header {
-                padding: 6px 10px;
+                padding: 10px;
             }
             
-            .google-logo {
-                width: 150px;
-            }
-            
-            .footer {
-                padding: 10px 15px;
-            }
-            
-            .footer-links {
+            .footer-links-left, .footer-links-right {
                 gap: 15px;
             }
+            
+            .footer-link {
+                font-size: 13px;
+            }
+        }
+
+        /* Microphone Animation */
+        .mic-icon {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .mic-icon svg {
+            fill: var(--blue);
+        }
+
+        .mic-icon:hover::after {
+            content: "Search by voice";
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <div class="header">
-        <div class="header-links">
-            <a href="#" class="header-link">Gmail</a>
-            <a href="#" class="header-link">Images</a>
-            <button class="theme-toggle" id="themeToggle">
-                <svg class="theme-icon" viewBox="0 0 24 24">
-                    <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"></path>
-                </svg>
-            </button>
-            <button class="theme-toggle">
-                <svg class="apps-icon" viewBox="0 0 24 24">
-                    <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path>
-                </svg>
-            </button>
-            <button class="header-link" style="background-color: #1a73e8; color: white; border-radius: 4px; padding: 8px 15px; margin-left: 5px;">Sign in</button>
-        </div>
+        <a href="#" class="header-link">Gmail</a>
+        <a href="#" class="header-link">Images</a>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="theme-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        <div class="user-icon">U</div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google" class="google-logo" id="googleLogo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='272' height='92' viewBox='0 0 272 92'%3E%3Cpath fill='%234285F4' d='M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z'/%3E%3Cpath fill='%23EA4335' d='M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C119.25 34.32 129.24 25 141.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z'/%3E%3Cpath fill='%23FBBC05' d='M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z'/%3E%3Cpath fill='%234285F4' d='M225.3 72.3c5.3 0 9.41-2.35 11.6-5.04h.33v3.61h9.26V35.9h-9.26v22.11h-.33c-2.19-2.6-6.3-4.96-11.6-4.96-11.09 0-21.25 9.74-21.25 22.26 0 12.43 10.16 22.09 21.25 22.09zm0-9.57c-6.72 0-12.35-5.63-12.35-13.36 0-7.81 5.63-13.52 12.35-13.52 6.63 0 11.84 5.71 11.84 13.52 0 7.73-5.21 13.36-11.84 13.36z'/%3E%3Cpath fill='%2334A853' d='M75 68.48c-2.18-2.69-6.38-5.04-11.68-5.04-11.09 0-21.25 9.66-21.25 22.09 0 12.43 10.16 22.09 21.25 22.09 5.3 0 9.5-2.35 11.68-5.04h.34v3.61h9.25V35.9H75.34v32.58H75zm-13.68 14.59c-6.72 0-12.35-5.63-12.35-13.36 0-7.81 5.63-13.52 12.35-13.52 6.63 0 11.84 5.71 11.84 13.52 0 7.73-5.21 13.36-11.84 13.36z'/%3E%3Cpath fill='%23EA4335' d='M.3 47.18C.3 77.7 24.6 103 55.12 103c30.51 0 54.82-25.3 54.82-55.82C109.94 16.65 85.63-8.65 55.12-8.65S.3 16.65.3 47.18zm100.32 0c0 25.3-20.66 46.07-45.82 46.07C29.66 93.25 9 72.48 9 47.18 9 21.88 29.66 1.11 54.8 1.11c25.16 0 45.82 20.77 45.82 46.07z'/%3E%3C/svg%3E" alt="Google" class="google-logo" id="googleLogo">
         
         <div class="search-container">
             <div class="search-box">
                 <svg class="search-icon" focusable="false" viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                 </svg>
                 <input type="text" class="search-input" id="searchInput" placeholder="Search Google or type a URL" autocomplete="off">
-                <svg class="search-icon" focusable="false" viewBox="0 0 24 24" style="cursor: pointer;">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                </svg>
+                <div class="mic-icon">
+                    <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path>
+                    </svg>
+                </div>
             </div>
             
             <div class="search-buttons">
                 <button type="button" class="search-button" id="googleSearch">Google Search</button>
-                <button type="button" class="search-button">I'm Feeling Lucky</button>
+                <button type="button" class="search-button" id="luckyButton">I'm Feeling Lucky</button>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
+        <div class="footer-location">United States</div>
+        <div class="footer-links">
+            <div class="footer-links-left">
                 <a href="#" class="footer-link">About</a>
                 <a href="#" class="footer-link">Advertising</a>
                 <a href="#" class="footer-link">Business</a>
                 <a href="#" class="footer-link">How Search works</a>
             </div>
-            <div class="footer-links">
+            <div class="footer-links-right">
                 <a href="#" class="footer-link">Privacy</a>
                 <a href="#" class="footer-link">Terms</a>
                 <a href="#" class="footer-link">Settings</a>
@@ -314,7 +376,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Theme Toggle Functionality
             const themeToggle = document.getElementById('themeToggle');
-            const googleLogo = document.getElementById('googleLogo');
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
             
             // Check for saved theme preference or use system preference
@@ -324,10 +385,10 @@
             // Apply the theme
             if (currentTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
-                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             } else {
                 document.body.removeAttribute('data-theme');
-                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
             
             // Toggle theme on button click
@@ -337,20 +398,21 @@
                 if (currentTheme === 'dark') {
                     document.body.removeAttribute('data-theme');
                     localStorage.setItem('theme', 'light');
-                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
                 } else {
                     document.body.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
-                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                 }
             });
             
             // Search Functionality with Vercel Integration
             const searchInput = document.getElementById('searchInput');
             const googleSearch = document.getElementById('googleSearch');
+            const luckyButton = document.getElementById('luckyButton');
             
             // Function to handle search
-            async function handleSearch(query) {
+            async function handleSearch(query, isLucky = false) {
                 if (!query) return;
                 
                 // 1. Send the query to the Vercel Serverless Function for logging
@@ -374,8 +436,11 @@
                 }
 
                 // 2. Redirect to Google Search
-                // This will show google.com in the address bar
-                window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                if (isLucky) {
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}&btnI=1`;
+                } else {
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                }
             }
             
             // Handle search button click
@@ -383,6 +448,18 @@
                 const query = searchInput.value.trim();
                 if (query) {
                     handleSearch(query);
+                } else {
+                    searchInput.focus();
+                }
+            });
+            
+            // Handle lucky button click
+            luckyButton.addEventListener('click', () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    handleSearch(query, true);
+                } else {
+                    searchInput.focus();
                 }
             });
             
@@ -396,15 +473,18 @@
                 }
             });
             
+            // Focus on search input
+            searchInput.focus();
+            
             // Listen for system theme changes
             prefersDarkScheme.addListener((e) => {
                 if (!localStorage.getItem('theme')) {
                     if (e.matches) {
                         document.body.setAttribute('data-theme', 'dark');
-                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                     } else {
                         document.body.removeAttribute('data-theme');
-                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
                     }
                 }
             });
