@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
+    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -102,13 +102,18 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background-color: var(--blue);
+            background-color: #5f6368;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        [data-theme="dark"] .user-icon {
+            background-color: #9aa0a6;
         }
 
         /* Main Content */
@@ -327,12 +332,12 @@
         <button class="theme-toggle">
             <i class="fas fa-th"></i>
         </button>
-        <div class="user-icon">U</div>
+        <div class="user-icon">G</div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='272' height='92' viewBox='0 0 272 92'%3E%3Cpath fill='%234285F4' d='M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z'/%3E%3Cpath fill='%23EA4335' d='M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C119.25 34.32 129.24 25 141.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z'/%3E%3Cpath fill='%23FBBC05' d='M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z'/%3E%3Cpath fill='%234285F4' d='M225.3 72.3c5.3 0 9.41-2.35 11.6-5.04h.33v3.61h9.26V35.9h-9.26v22.11h-.33c-2.19-2.6-6.3-4.96-11.6-4.96-11.09 0-21.25 9.74-21.25 22.26 0 12.43 10.16 22.09 21.25 22.09zm0-9.57c-6.72 0-12.35-5.63-12.35-13.36 0-7.81 5.63-13.52 12.35-13.52 6.63 0 11.84 5.71 11.84 13.52 0 7.73-5.21 13.36-11.84 13.36z'/%3E%3Cpath fill='%2334A853' d='M75 68.48c-2.18-2.69-6.38-5.04-11.68-5.04-11.09 0-21.25 9.66-21.25 22.09 0 12.43 10.16 22.09 21.25 22.09 5.3 0 9.5-2.35 11.68-5.04h.34v3.61h9.25V35.9H75.34v32.58H75zm-13.68 14.59c-6.72 0-12.35-5.63-12.35-13.36 0-7.81 5.63-13.52 12.35-13.52 6.63 0 11.84 5.71 11.84 13.52 0 7.73-5.21 13.36-11.84 13.36z'/%3E%3Cpath fill='%23EA4335' d='M.3 47.18C.3 77.7 24.6 103 55.12 103c30.51 0 54.82-25.3 54.82-55.82C109.94 16.65 85.63-8.65 55.12-8.65S.3 16.65.3 47.18zm100.32 0c0 25.3-20.66 46.07-45.82 46.07C29.66 93.25 9 72.48 9 47.18 9 21.88 29.66 1.11 54.8 1.11c25.16 0 45.82 20.77 45.82 46.07z'/%3E%3C/svg%3E" alt="Google" class="google-logo" id="googleLogo">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google" class="google-logo" id="googleLogo">
         
         <div class="search-container">
             <div class="search-box">
@@ -376,6 +381,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Theme Toggle Functionality
             const themeToggle = document.getElementById('themeToggle');
+            const googleLogo = document.getElementById('googleLogo');
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
             
             // Check for saved theme preference or use system preference
@@ -386,9 +392,11 @@
             if (currentTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
             } else {
                 document.body.removeAttribute('data-theme');
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
             }
             
             // Toggle theme on button click
@@ -399,10 +407,12 @@
                     document.body.removeAttribute('data-theme');
                     localStorage.setItem('theme', 'light');
                     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
                 } else {
                     document.body.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
                     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
                 }
             });
             
@@ -482,9 +492,11 @@
                     if (e.matches) {
                         document.body.setAttribute('data-theme', 'dark');
                         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
                     } else {
                         document.body.removeAttribute('data-theme');
                         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
                     }
                 }
             });
