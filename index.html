@@ -337,7 +337,7 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google" class="google-logo" id="googleLogo">
+        <img src="googlelogo" alt="Google" class="google-logo" id="googleLogo">
         
         <div class="search-container">
             <div class="search-box">
@@ -392,11 +392,11 @@
             if (currentTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                googleLogo.src = 'googlelogo';
             } else {
                 document.body.removeAttribute('data-theme');
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                googleLogo.src = 'googlelogo';
             }
             
             // Toggle theme on button click
@@ -492,11 +492,11 @@
                     if (e.matches) {
                         document.body.setAttribute('data-theme', 'dark');
                         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png';
+                        googleLogo.src = 'googlelogo';
                     } else {
                         document.body.removeAttribute('data-theme');
                         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                        googleLogo.src = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png';
+                        googleLogo.src = 'googlelogo';
                     }
                 }
             });
